@@ -1,4 +1,4 @@
-GET http://localhost:8001/member/hello
+GET http://127.0.0.1:8001/member/hello
 Accept: application/json
 
 ###
