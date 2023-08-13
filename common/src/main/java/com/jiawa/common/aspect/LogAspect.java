@@ -1,4 +1,4 @@
-package com.jiawa.mytrain.member.aspect;
+package com.jiawa.common.aspect;
 
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
