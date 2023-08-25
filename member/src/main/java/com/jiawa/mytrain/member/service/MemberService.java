@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.jiawa.mytrain.member.domain.Member;
 import com.jiawa.mytrain.member.domain.MemberExample;
 import com.jiawa.mytrain.member.mapper.MemberMapper;
+import com.jiawa.mytrain.member.req.MemberRegisterReq;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ public class MemberService {
         return Math.toIntExact(memberMapper.countByExample(null));
     }
 
-    public long register(String mobile){
+    public long register(MemberRegisterReq req){
+        String mobile = req.getMobile();
         // 查询是否有重复电话号码
         MemberExample memberExample = new MemberExample();
         // 创建条件
@@ -35,7 +37,9 @@ public class MemberService {
 
         // 注册
         Member member = new Member();
+        // 设置member id 为 当前时间
         member.setId(System.currentTimeMillis());
+        // 设置手机号
         member.setMobile(mobile);
 
         memberMapper.insert(member);
