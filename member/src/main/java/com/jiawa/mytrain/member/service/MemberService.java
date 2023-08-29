@@ -1,6 +1,8 @@
 package com.jiawa.mytrain.member.service;
 
 import cn.hutool.core.collection.CollUtil;
+import com.jiawa.mytrain.common.exception.BusinessException;
+import com.jiawa.mytrain.common.exception.BusinessExceptionEnum;
 import com.jiawa.mytrain.member.domain.Member;
 import com.jiawa.mytrain.member.domain.MemberExample;
 import com.jiawa.mytrain.member.mapper.MemberMapper;
@@ -32,7 +34,7 @@ public class MemberService {
         // 如果 list 不为空,说明有重复手机号
         if(CollUtil.isNotEmpty(list)){
 //            return list.get(0).getId();
-            throw new RuntimeException("手机号已注册");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
 
         // 注册

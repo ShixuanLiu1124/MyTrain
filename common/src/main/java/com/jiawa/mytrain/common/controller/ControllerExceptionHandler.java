@@ -1,5 +1,6 @@
 package com.jiawa.mytrain.common.controller;
 
+import com.jiawa.mytrain.common.exception.BusinessException;
 import com.jiawa.mytrain.common.resp.CommonResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,27 @@ public class ControllerExceptionHandler {
         CommonResp commonResp = new CommonResp();
         LOG.error("系统异常：", e);
         commonResp.setSuccess(false);
-        commonResp.setMessage(e.getMessage());
+        commonResp.setMessage("系统异常");
+        return commonResp;
+    }
+
+    /**
+     * 业务异常统一处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = BusinessException.class)
+    @ResponseBody
+    public CommonResp exceptionHandler(BusinessException e) {
+        // LOG.info("seata全局事务ID: {}", RootContext.getXID());
+        // // 如果是在一次全局事务里出异常了，就不要包装返回值，将异常抛给调用方，让调用方回滚事务
+        // if (StrUtil.isNotBlank(RootContext.getXID())) {
+        //     throw e;
+        // }
+        CommonResp commonResp = new CommonResp();
+        LOG.error("业务异常：", e);
+        commonResp.setSuccess(false);
+        commonResp.setMessage(e.getE().getDesc());
         return commonResp;
     }
 
