@@ -1,6 +1,6 @@
 package com.jiawa.mytrain.member.controller;
 
-import com.jiawa.common.resp.CommonResp;
+import com.jiawa.mytrain.common.resp.CommonResp;
 import com.jiawa.mytrain.member.req.MemberRegisterReq;
 import com.jiawa.mytrain.member.service.MemberService;
 import jakarta.annotation.Resource;
