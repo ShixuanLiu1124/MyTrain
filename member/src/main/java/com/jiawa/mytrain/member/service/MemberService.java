@@ -3,6 +3,7 @@ package com.jiawa.mytrain.member.service;
 import cn.hutool.core.collection.CollUtil;
 import com.jiawa.mytrain.common.exception.BusinessException;
 import com.jiawa.mytrain.common.exception.BusinessExceptionEnum;
+import com.jiawa.mytrain.common.util.SnowUtil;
 import com.jiawa.mytrain.member.domain.Member;
 import com.jiawa.mytrain.member.domain.MemberExample;
 import com.jiawa.mytrain.member.mapper.MemberMapper;
@@ -39,8 +40,8 @@ public class MemberService {
 
         // 注册
         Member member = new Member();
-        // 设置member id 为 当前时间
-        member.setId(System.currentTimeMillis());
+        // 雪花算法
+        member.setId(SnowUtil.getSnowflakeNextId());
         // 设置手机号
         member.setMobile(mobile);
 
