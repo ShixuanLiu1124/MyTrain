@@ -15,4 +15,10 @@ public class BusinessException extends RuntimeException{
     public void setE(BusinessExceptionEnum e) {
         this.e = e;
     }
+
+    // 重写 RuntimeException 的返回堆栈信息函数
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

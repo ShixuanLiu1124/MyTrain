@@ -51,7 +51,8 @@ public class ControllerExceptionHandler {
         //     throw e;
         // }
         CommonResp commonResp = new CommonResp();
-        LOG.error("业务异常：", e);
+        // 控制台打印异常信息
+        LOG.error("业务异常：{}", e.getE().getDesc());
         commonResp.setSuccess(false);
         commonResp.setMessage(e.getE().getDesc());
         return commonResp;
