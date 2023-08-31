@@ -32,7 +32,7 @@ public class MemberController {
 
     @PostMapping("/register")
     // @Valid 让 req 中的验证注解生效
-    public CommonResp<Long> register(@Valid MemberRegisterReq req){
+    public CommonResp<Long> register(@Valid @RequestBody MemberRegisterReq req){
         long register = memberService.register(req);
 //        CommonResp<Long> commonResp = new CommonResp<>();
 //
@@ -54,7 +54,7 @@ public class MemberController {
 
     @PostMapping("/login")
     // @Valid 让 req 中的验证注解生效
-    public CommonResp<MemberLoginResp> login(@Valid MemberLoginReq req){
+    public CommonResp<MemberLoginResp> login(@Valid @RequestBody MemberLoginReq req){
 
         MemberLoginResp resp = memberService.login(req);
 
