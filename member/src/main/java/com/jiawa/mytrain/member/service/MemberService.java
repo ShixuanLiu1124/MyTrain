@@ -1,15 +1,18 @@
 package com.jiawa.mytrain.member.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.jiawa.mytrain.common.exception.BusinessException;
 import com.jiawa.mytrain.common.exception.BusinessExceptionEnum;
 import com.jiawa.mytrain.common.util.SnowUtil;
 import com.jiawa.mytrain.member.domain.Member;
 import com.jiawa.mytrain.member.domain.MemberExample;
 import com.jiawa.mytrain.member.mapper.MemberMapper;
+import com.jiawa.mytrain.member.req.MemberLoginReq;
 import com.jiawa.mytrain.member.req.MemberRegisterReq;
 import com.jiawa.mytrain.member.req.MemberSendCodeReq;
+import com.jiawa.mytrain.member.resp.MemberLoginResp;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,15 +34,10 @@ public class MemberService {
     public long register(MemberRegisterReq req){
         String mobile = req.getMobile();
         // 查询是否有重复电话号码
-        MemberExample memberExample = new MemberExample();
-        // 创建条件
-        memberExample.createCriteria().andMobileEqualTo(mobile);
-        // 将数据库中与注册手机号相同的 member 对象放到一个 list 中
-        List<Member> list = memberMapper.selectByExample(memberExample);
+        Member memberDB = selectByMobile(mobile);
 
-        // 如果 list 不为空,说明有重复手机号
-        if(CollUtil.isNotEmpty(list)){
-//            return list.get(0).getId();
+        // 如果 memberDB 不为空,说明有重复手机号
+        if(ObjectUtil.isNotEmpty(memberDB)){
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
 
@@ -49,7 +47,7 @@ public class MemberService {
         member.setId(SnowUtil.getSnowflakeNextId());
         // 设置手机号
         member.setMobile(mobile);
-
+        // 插入用户
         memberMapper.insert(member);
 
         return member.getId();
@@ -59,14 +57,10 @@ public class MemberService {
     public void sendCode(MemberSendCodeReq req){
         String mobile = req.getMobile();
         // 查询是否有重复电话号码
-        MemberExample memberExample = new MemberExample();
-        // 创建条件
-        memberExample.createCriteria().andMobileEqualTo(mobile);
-        // 将数据库中与注册手机号相同的 member 对象放到一个 list 中
-        List<Member> list = memberMapper.selectByExample(memberExample);
+        Member memberDB = selectByMobile(mobile);
 
-        // 如果 list 不为空,说明手机号已经注册
-        if(CollUtil.isNotEmpty(list)){
+        // 如果 memberDB 为空,说明手机号不存在
+        if(ObjectUtil.isNull(memberDB)){
             LOG.info("手机号不存在，插入一条记录");
 
             Member member = new Member();
@@ -78,7 +72,8 @@ public class MemberService {
         }
 
         // 生成验证码
-        String code = RandomUtil.randomString(4);
+//        String code = RandomUtil.randomString(4);
+        String code = "8888";
         LOG.info("生成短信验证码：{}", code);
 
         // 保存短信记录表:
@@ -86,5 +81,41 @@ public class MemberService {
         LOG.info("保存短信验证码：{}", code);
         // 对接短信通道，发送短信
         LOG.info("对接短信通道");
+    }
+
+    // 发送手机验证码
+    public MemberLoginResp login(MemberLoginReq req){
+        String mobile = req.getMobile();
+        String code = req.getCode();
+        Member memberDB = selectByMobile(mobile);
+
+        // 如果 memberDB 为空,说明手机号不存在
+        if(ObjectUtil.isNull(memberDB)){
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_NOT_EXIST);
+        }
+
+        // 校验短信验证码
+        if(!"8888".equals(code)){
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_CODE_ERROR);
+        }
+
+        // 将查询到的 member 赋值给 memberLoginResp
+        return BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+    }
+
+    private Member selectByMobile(String mobile) {
+        // 查询是否有重复电话号码
+        MemberExample memberExample = new MemberExample();
+        // 创建条件
+        memberExample.createCriteria().andMobileEqualTo(mobile);
+        // 将数据库中与注册手机号相同的 member 对象放到一个 list 中
+        List<Member> list = memberMapper.selectByExample(memberExample);
+
+        // 如果 list 为空,说明手机号已经注册
+        if(CollUtil.isEmpty(list)){
+            return null;
+        }else {
+            return list.get(0);
+        }
     }
 }
