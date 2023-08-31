@@ -10,7 +10,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -45,7 +45,7 @@ public class MemberController {
 
     @PostMapping("/send-code")
     // @Valid 让 req 中的验证注解生效
-    public CommonResp<Long> sendCode(@Valid MemberSendCodeReq req){
+    public CommonResp<Long> sendCode(@Valid @RequestBody MemberSendCodeReq req){
 
         memberService.sendCode(req);
 
