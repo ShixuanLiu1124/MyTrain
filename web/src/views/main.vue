@@ -1,18 +1,6 @@
 <template>
   <a-layout id="components-layout-demo-top-side-2">
-    <a-layout-header class="header">
-      <div class="logo" />
-      <a-menu
-          v-model:selectedKeys="selectedKeys1"
-          theme="dark"
-          mode="horizontal"
-          :style="{ lineHeight: '64px' }"
-      >
-        <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item>
-      </a-menu>
-    </a-layout-header>
+    <the-header-view></the-header-view>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff">
         <a-menu
@@ -60,6 +48,7 @@
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
+<!--        面包屑导航-->
         <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item>Home</a-breadcrumb-item>
           <a-breadcrumb-item>List</a-breadcrumb-item>
@@ -76,6 +65,12 @@
 </template>
 <script>
 
+import {defineComponent} from "vue";
+import TheHeaderView from "@/components/the-header.vue";
+
+export default defineComponent({
+  components: {TheHeaderView}
+})
 </script>
 <style scoped>
 #components-layout-demo-top-side-2 .logo {

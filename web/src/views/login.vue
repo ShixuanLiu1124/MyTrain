@@ -42,7 +42,7 @@ import { defineComponent, reactive } from 'vue';
 import axios from "axios";
 import { notification } from 'ant-design-vue';
 // useRouter 管理全局路由，useRoute 管理当前路由
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter} from 'vue-router'
 
 export default defineComponent({
   name: "login-view",
