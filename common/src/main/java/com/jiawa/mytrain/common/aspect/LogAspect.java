@@ -1,6 +1,5 @@
 package com.jiawa.mytrain.common.aspect;
 
-import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.PropertyPreFilters;
 import jakarta.servlet.ServletRequest;
@@ -15,7 +14,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -43,10 +41,10 @@ public class LogAspect {
     @Before("controllerPointcut()")
     public void doBefore(JoinPoint joinPoint) {
         // 日志流水号
-        MDC.put("LOG_ID", System.currentTimeMillis() + RandomUtil.randomString(3));
+//        MDC.put("LOG_ID", System.currentTimeMillis() + RandomUtil.randomString(3));
 
         // 开始打印请求日志
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
@@ -63,10 +61,10 @@ public class LogAspect {
 
         // 排除特殊类型的参数，如文件类型
         Object[] arguments = new Object[args.length];
-        for (int i = 0; i < args.length; i++) {
-            if (args[i] instanceof ServletRequest
+        for(int i = 0; i < args.length; i++){
+            if(args[i] instanceof ServletRequest
                     || args[i] instanceof ServletResponse
-                    || args[i] instanceof MultipartFile) {
+                    || args[i] instanceof MultipartFile){
                 continue;
             }
             arguments[i] = args[i];
