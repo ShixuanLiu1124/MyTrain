@@ -1,6 +1,6 @@
 ### passenger save
 
-POST http://localhost:8001/member/passenger/save
+POST http://localhost:8000/member/passenger/save
 Content-Type: application/json
 token: {{ token }}
 
@@ -10,4 +10,8 @@ token: {{ token }}
   "type": "1"
 }
 
-###
+### passenger list query
+
+GET http://localhost:8000/member/passenger/query-list
+Accept: application/json
+token: {{ token }}
