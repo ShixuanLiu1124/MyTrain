@@ -43,6 +43,8 @@ public class PassengerService {
 
     public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req) {
         PassengerExample passengerExample = new PassengerExample();
+        // 根据 id 倒序
+        passengerExample.setOrderByClause("id desc");
         PassengerExample.Criteria criteria = passengerExample.createCriteria();
 
         if(ObjectUtil.isNotNull(req.getMemberId())){
@@ -53,6 +55,7 @@ public class PassengerService {
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
         PageHelper.startPage(req.getPage(), req.getSize());
+
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
         PageInfo<Passenger> pageInfo = new PageInfo<>(passengerList);

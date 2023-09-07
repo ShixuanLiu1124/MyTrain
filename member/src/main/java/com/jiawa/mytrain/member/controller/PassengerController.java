@@ -33,6 +33,7 @@ public class PassengerController {
     // @Valid 让 req 中的验证注解生效
     public CommonResp<PageResp<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req){
         req.setMemberId(LoginMemberContext.getId());
+
         PageResp<PassengerQueryResp> passengerQueryRespList = passengerService.queryList(req);
 
         return new CommonResp<>(passengerQueryRespList);
