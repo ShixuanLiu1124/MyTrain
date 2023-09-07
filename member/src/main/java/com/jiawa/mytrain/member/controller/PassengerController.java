@@ -32,7 +32,7 @@ public class PassengerController {
     // 查询用 Get
     @GetMapping("/query-list")
     // @Valid 让 req 中的验证注解生效
-    public CommonResp<List<PassengerQueryResp>> queryList(PassengerQueryReq req){
+    public CommonResp<List<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req){
         req.setMemberId(LoginMemberContext.getId());
         List<PassengerQueryResp> passengerQueryRespList = passengerService.queryList(req);
 

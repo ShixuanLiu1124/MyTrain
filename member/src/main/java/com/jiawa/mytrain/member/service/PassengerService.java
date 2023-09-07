@@ -3,7 +3,6 @@ package com.jiawa.mytrain.member.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jiawa.mytrain.common.context.LoginMemberContext;
 import com.jiawa.mytrain.common.util.SnowUtil;
@@ -15,6 +14,8 @@ import com.jiawa.mytrain.member.req.PassengerSaveReq;
 import com.jiawa.mytrain.member.resp.PassengerQueryResp;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,6 +26,8 @@ public class PassengerService {
 
     @Resource
     private PassengerMapper passengerMapper;
+
+    private static final Logger LOG = LoggerFactory.getLogger(PassengerService.class);
 
     public void save(@Valid @RequestBody PassengerSaveReq req) {
         DateTime now = DateTime.now();
@@ -37,6 +40,9 @@ public class PassengerService {
     }
 
     public List<PassengerQueryResp> queryList(PassengerQueryReq req) {
+
+        LOG.info("req.getsize() = " + req.getSize());
+
         PassengerExample passengerExample = new PassengerExample();
         PassengerExample.Criteria criteria = passengerExample.createCriteria();
 
@@ -45,7 +51,7 @@ public class PassengerService {
         }
 
         // 开始分页
-        Page<Object> startPage = PageHelper.startPage(2, 2);
+        PageHelper.startPage(req.getPage(), req.getSize());
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
         return BeanUtil.copyToList(passengerList, PassengerQueryResp.class);
