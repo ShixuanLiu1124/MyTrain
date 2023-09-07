@@ -3,6 +3,8 @@ package com.jiawa.mytrain.member.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jiawa.mytrain.common.context.LoginMemberContext;
 import com.jiawa.mytrain.common.util.SnowUtil;
 import com.jiawa.mytrain.member.domain.Passenger;
@@ -42,6 +44,8 @@ public class PassengerService {
             criteria.andMemberIdEqualTo(req.getMemberId());
         }
 
+        // 开始分页
+        Page<Object> startPage = PageHelper.startPage(2, 2);
         List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
 
         return BeanUtil.copyToList(passengerList, PassengerQueryResp.class);
