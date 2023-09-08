@@ -1,7 +1,9 @@
 <template>
   <a-row class="login">
     <a-col :span="8" :offset="8" class="login-main">
-      <h1 style="text-align: center"><rocket-two-tone />&nbsp;渣蛙仿12306售票系统</h1>
+      <h1 style="text-align: center">
+        <rocket-two-tone/>&nbsp;渣蛙仿12306售票系统
+      </h1>
       <a-form
           :model="loginForm"
           name="basic"
@@ -38,11 +40,11 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import {defineComponent, reactive} from 'vue';
 import axios from "axios";
-import { notification } from 'ant-design-vue';
+import {notification} from 'ant-design-vue';
 // useRouter 管理全局路由，useRoute 管理当前路由
-import { useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 import store from "@/store";
 
 export default defineComponent({
@@ -50,7 +52,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const loginForm = reactive({
-      mobile: '13061419506',
+      mobile: '13034339506',
       code: '',
     });
 
@@ -61,10 +63,10 @@ export default defineComponent({
         console.log(response);
         let data = response.data;
         if (data.success) {
-          notification.success({ description: '发送验证码成功！' });
+          notification.success({description: '发送验证码成功！'});
           loginForm.code = "8888";
         } else {
-          notification.error({ description: data.message });
+          notification.error({description: data.message});
         }
       });
     };
@@ -73,13 +75,13 @@ export default defineComponent({
       axios.post("/member/member/login", loginForm).then((response) => {
         let data = response.data;
         if (data.success) {
-          notification.success({ description: '登录成功！' });
+          notification.success({description: '登录成功！'});
           // 跳转到控台主页
           router.push("/");
           store.commit("setMember", data.content);
           console.log("登录成功: ", data.content);
         } else {
-          notification.error({ description: data.message });
+          notification.error({description: data.message});
         }
       })
     };
@@ -99,6 +101,7 @@ export default defineComponent({
   font-size: 25px;
   font-weight: bold;
 }
+
 .login-main {
   margin-top: 100px;
   padding: 30px 30px 20px;
