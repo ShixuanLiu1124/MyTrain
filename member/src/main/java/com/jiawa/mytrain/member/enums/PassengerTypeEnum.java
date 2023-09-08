@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public enum PassengerTypeEnum {
-    // 枚举名字(值, 描述)
+
     ADULT("1", "成人"),
     CHILD("2", "儿童"),
     STUDENT("3", "学生");
