@@ -11,7 +11,6 @@ import com.jiawa.mytrain.member.domain.Passenger;
 import com.jiawa.mytrain.member.domain.PassengerExample;
 import com.jiawa.mytrain.member.mapper.PassengerMapper;
 import com.jiawa.mytrain.member.req.PassengerQueryReq;
-import com.jiawa.mytrain.member.req.PassengerSaveReq;
 import com.jiawa.mytrain.member.resp.PageResp;
 import com.jiawa.mytrain.member.resp.PassengerQueryResp;
 import jakarta.annotation.Resource;
@@ -31,7 +30,7 @@ public class PassengerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassengerService.class);
 
-    public void save(@Valid @RequestBody PassengerSaveReq req) {
+    public void save(@Valid @RequestBody com.jiawa.mytrain.member.req.PassengerSaveReq req) {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
 
