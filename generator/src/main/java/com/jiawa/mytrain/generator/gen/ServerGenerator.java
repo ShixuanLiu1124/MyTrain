@@ -16,7 +16,7 @@ import java.util.*;
 public class ServerGenerator {
     static boolean readOnly = false;
     static String vuePath = "admin/src/views/main/";
-    static String serverPath = "[module]/src/main/java/com/jiawa/train/[module]/";
+    static String serverPath = "[module]/src/main/java/com/jiawa/mytrain/[module]/";
     static String pomPath = "generator/pom.xml";
     static String module = "";
     // static {
@@ -86,6 +86,9 @@ public class ServerGenerator {
     }
 
     private static void gen(String Domain, Map<String, Object> param, String packageName, String target) throws IOException, TemplateException {
+
+        System.out.println("target = " + target);
+
         FreemarkerUtil.initConfig(target + ".ftl");
         String toPath = serverPath + packageName + "/";
         new File(toPath).mkdirs();

@@ -1,12 +1,12 @@
-package com.jiawa.train.${module}.controller.admin;
+package com.jiawa.mytrain.${module}.controller.admin;
 
-import com.jiawa.train.common.context.LoginMemberContext;
-import com.jiawa.train.common.resp.CommonResp;
-import com.jiawa.train.common.resp.PageResp;
-import com.jiawa.train.${module}.req.${Domain}QueryReq;
-import com.jiawa.train.${module}.req.${Domain}SaveReq;
-import com.jiawa.train.${module}.resp.${Domain}QueryResp;
-import com.jiawa.train.${module}.service.${Domain}Service;
+import com.jiawa.mytrain.common.context.LoginMemberContext;
+import com.jiawa.mytrain.common.resp.CommonResp;
+import com.jiawa.mytrain.common.resp.PageResp;
+import com.jiawa.mytrain.${module}.req.${Domain}QueryReq;
+import com.jiawa.mytrain.${module}.req.${Domain}SaveReq;
+import com.jiawa.mytrain.${module}.resp.${Domain}QueryResp;
+import com.jiawa.mytrain.${module}.service.${Domain}Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

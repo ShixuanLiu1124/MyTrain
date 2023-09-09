@@ -2,10 +2,6 @@ package com.jiawa.mytrain.generator.gen;
 
 
 import cn.hutool.core.util.StrUtil;
-//import com.jiawa.mytrain.business.enums.ConfirmOrderStatusEnum;
-//import com.jiawa.mytrain.business.enums.SeatColEnum;
-//import com.jiawa.mytrain.business.enums.SeatTypeEnum;
-//import com.jiawa.mytrain.business.enums.TrainTypeEnum;
 import com.jiawa.mytrain.member.enums.PassengerTypeEnum;
 
 import java.io.FileOutputStream;
@@ -16,6 +12,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EnumGenerator {
      static String path = "web/src/assets/js/enums.js";

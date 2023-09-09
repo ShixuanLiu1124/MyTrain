@@ -1,12 +1,12 @@
-package com.jiawa.mytrain.${module}.req;
+package com.jiawa.mytrain.business.req;
 
 import com.jiawa.mytrain.common.req.PageReq;
 
-public class ${Domain}QueryReq extends PageReq {
+public class StationQueryReq extends PageReq {
 
     @Override
     public String toString() {
-        return "${Domain}QueryReq{" +
+        return "StationQueryReq{" +
                 "} " + super.toString();
     }
 }
